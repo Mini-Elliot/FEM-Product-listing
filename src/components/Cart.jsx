@@ -20,7 +20,7 @@ const Cart = ({ cart = [], onDeleteItem, onConfirm }) => {
             <h2 className="cart__title">Your Cart ({totalProducts})</h2>
             <div className="cart__main">
                 {totalProducts === 0 ? (
-                    <span>
+                    <div>
                         <img
                             className="cart__placeholder-image"
                             src={getImage("illustration-empty-cart.svg")}
@@ -29,7 +29,7 @@ const Cart = ({ cart = [], onDeleteItem, onConfirm }) => {
                         <p className="cart__subtitle">
                             Your added items will appear here
                         </p>
-                    </span>
+                    </div>
                 ) : (
                     <>
                         <ul>
