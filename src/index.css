@@ -1,0 +1,438 @@
+@font-face {
+    font-family: "Red Hat Text", sans-serif;
+    font-style: italic;
+    src: url("./assets/fonts/RedHatText-Italic-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Red Hat Text", sans-serif;
+    src: url("./assets/fonts/RedHatText-VariableFont_wght.ttf");
+}
+
+:root {
+    --red: hsl(14, 86%, 42%);
+    --green: hsl(159, 69%, 38%);
+
+    --rose-50: hsl(20, 50%, 98%);
+    --rose-100: hsl(13, 31%, 94%);
+    --rose-300: hsl(14, 25%, 72%);
+    --rose-400: hsl(7, 20%, 60%);
+    --rose-500: hsl(12, 20%, 44%);
+    --rose-900: hsl(14, 65%, 9%);
+
+    --fs-h1: 2.5rem;
+    --fs-h2: 1.5rem;
+    --fs-button: 0.875rem;
+    --fs-body: 1rem;
+
+    --ls-heading: 0.2px;
+
+    --fw-reg: 400;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+
+    --ff-regular: "Red Hat Text", sans-serif;
+}
+
+@layer reset {
+
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    figure,
+    ul,
+    ol {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-weight: 500;
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
+    html {
+        font-size: 16px;
+    }
+
+    body {
+        margin: 0;
+        --body: var(--rose-300);
+        --bg: var(--rose-100);
+        background-color: var(--bg);
+        color: var(--body);
+        font-family: var(--ff-regular);
+    }
+}
+
+@layer layout {
+    .main {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 1rem;
+
+        @media (width < 960px) {
+            flex-direction: column;
+        }
+    }
+
+    .main-heading {
+        margin-block-end: 1.875rem;
+
+        font-size: var(--fs-h1);
+        letter-spacing: var(--ls-heading);
+        font-weight: var(--fw-bold);
+
+        color: var(--rose-900);
+
+    }
+
+    /* PRODUCTS STYLES */
+    .products {
+        display: grid;
+        place-items: center;
+        max-width: 50rem;
+        gap: 20px;
+        padding: 0;
+        margin-block-start: 2em;
+
+        @media (width > 660px) {
+            grid-template-columns: repeat(2, 1fr);
+            margin: 0 auto;
+        }
+
+        @media (width > 960px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .product {
+        position: relative;
+        list-style: none;
+    }
+
+    .product__image {
+        border-radius: 10px;
+    }
+
+    .product__selected {
+        border: 2px solid var(--red);
+    }
+
+    .product__quantity {
+        color: var(--rose-50);
+    }
+
+    .product__category {
+        margin-bottom: 0.5rem;
+
+        color: var(--rose-500);
+
+        font-size: var(--fs-button);
+        font-weight: var(--fw-reg);
+    }
+
+    .product__name {
+        margin-block-end: 0.5rem;
+
+        color: var(--rose-900);
+        font-weight: var(--fw-semibold);
+        font-size: var(--fs-body);
+    }
+
+    .product__price {
+        margin-block-end: 0.5rem;
+
+        color: var(--red);
+        font-weight: var(--fw-semibold);
+    }
+}
+
+@layer cart {
+    .cart {
+        align-self: stretch;
+        padding: 1.5rem;
+        border-radius: 10px;
+
+        background: var(--rose-50);
+
+        .cart__main {
+            display: flex;
+            gap: 2rem;
+            flex-direction: column;
+        }
+
+        @media (width > 960px) {
+            align-self: flex-start;
+        }
+    }
+
+    .cart__title {
+        margin-block-end: 1.5rem;
+        color: var(--red);
+
+        font-weight: var(--fw-bold);
+        font-size: var(--fs-h2);
+        letter-spacing: var(--ls-heading);
+    }
+
+    .cart__subtitle {
+        color: var(--rose-400);
+
+        font-size: var(--fs-button);
+        text-align: center;
+    }
+
+    .cart__item {
+        display: grid;
+        grid-template-columns: 90% 1fr;
+        padding-block: 1rem;
+        gap: 0.7rem;
+        grid-template-areas:
+            "one three"
+            "two three";
+    }
+
+    .cart__item:not(:last-child) {
+        border-bottom: 1px solid var(--rose-100);
+    }
+
+    .cart__placeholder-image {
+        margin: 0 auto;
+    }
+
+    .cart__item__name {
+        color: var(--rose-900);
+
+        font-size: var(--fs-button);
+        letter-spacing: var(--ls-heading);
+        font-weight: var(--fw-reg);
+        grid-area: one;
+    }
+
+    .cart__item__details {
+        grid-area: two;
+        display: flex;
+        gap: 0.3rem;
+
+        font-size: var(--fs-button);
+    }
+
+    .cart__item__quantity {
+        font-weight: var(--fw-reg);
+        color: var(--red);
+        margin-inline-end: 0.5rem;
+    }
+
+    .cart__item__total__price {
+        color: var(--rose-500);
+        font-weight: var(--fw-semibold);
+    }
+
+    .cart__total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        width: 100%;
+        padding: 1rem 0.5rem;
+
+        .order-total {
+            color: var(--rose-500);
+            font-weight: var(--fw-reg);
+            font-size: var(--fs-button);
+        }
+
+        .cart__total__price {
+            margin-left: auto;
+            font-size: 1.5rem;
+            font-weight: var(--fw-semibold);
+            color: var(--rose-900);
+        }
+    }
+
+    .deliver-message {
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        gap: 0.5rem;
+
+        font-size: var(--fs-button);
+
+        color: var(--rose-900);
+        background: var(--rose-100);
+
+        cursor: default;
+    }
+}
+
+@layer buttons {
+    .btn-container {
+        position: relative;
+        width: 10rem;
+        top: -20px;
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--red);
+        padding: 0.4rem 1.75rem;
+        border-radius: 100vw;
+
+        background: var(--red);
+
+        cursor: default;
+    }
+
+    /* BUTTON STYLES */
+    .btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        font-size: var(--fs-button);
+        font-weight: var(--button-font-weight, var(--fw-reg));
+        background: var(--button-background, var(--rose-50));
+        border: 1px solid var(--button-border-color, var(--red));
+        border-radius: 100vw;
+
+        cursor: pointer;
+
+        &:hover {
+            color: var(--button-hover-color, var(--red));
+            background: var(--button-hover-background, var(--red));
+            border-color: var(--button-hover-border-color, var(--red));
+        }
+    }
+
+    /* CART BUTTON */
+    .btn--cart {
+        display: flex;
+        padding: 0.6rem 1.625rem;
+        top: -20px;
+        margin: 0 auto;
+        --button-background: var(--rose-50);
+        --button-hover-background: var(--rose-50);
+        --button-border-color: var(--rose-900);
+    }
+
+    /* QUANTITY BUTTON */
+    .btn--quantity {
+        color: var(--rose-50);
+        --button-horizontal-padding: 0.5rem;
+        --button-vertical-padding: 1rem;
+        --justify-button-content: space-between;
+        --button-background: var(--red);
+
+        &:hover {
+            --button-hover-color: var(--rose-50);
+        }
+    }
+
+    /* INCREMENT DECREMENT BUTTONS */
+    .btn--increment,
+    .btn--decrement {
+        aspect-ratio: 1/1;
+        color: var(--rose-50);
+        font-size: 1.25rem;
+        font-weight: 300;
+        background: var(--red);
+        --button-border-color: var(--rose-50);
+        --button-hover-border-color: var(--rose-50);
+        --button-hover-color: var(--red);
+        --button-hover-background: var(--rose-50);
+    }
+
+    /* CART ITEM DELETE BUTTON */
+    .btn--delete-item {
+        grid-area: three;
+        place-self: center;
+        aspect-ratio: 1/1;
+        height: 20px;
+        font-size: 1rem;
+        padding: 0;
+        color: var(--rose-500);
+        --button-font-weight: 300;
+        --button-hover-color: var(--rose-900);
+        --button-hover-background: var(--rose-50);
+        --button-hover-border-color: var(--rose-900);
+        --button-border-color: var(--rose-500);
+    }
+
+    /* ORDER CONFIRMATION BUTTON */
+    .btn--confirmation {
+        padding: 1rem 1.5rem;
+        width: 100%;
+        color: var(--rose-50);
+        --button-background: var(--red);
+        --button-hover-background: hsl(from var(--rose-900) h s 30%);
+        --button-hover-color: var(--rose-50);
+        --button-font-weight: var(--ff-regular);
+    }
+}
+
+@layer Modal {
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal {
+        background: var(--rose-50);
+        padding: 2rem;
+        border-radius: 10px;
+        width: 40vw;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        @media (width < 960px) {
+            width: 90vw;
+        }
+    }
+
+    .modal__heading {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: var(--fs-h2);
+        color: var(--rose-900);
+        letter-spacing: var(--ls-heading);
+        font-weight: var(--fw-bold);
+    }
+
+    .modal__cart-items {
+        background: var(--rose-100);
+        padding: 0 1rem;
+        margin-block-end: 1.5rem;
+        border-radius: 10px;
+    }
+}
